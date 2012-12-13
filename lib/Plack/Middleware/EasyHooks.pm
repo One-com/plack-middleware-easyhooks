@@ -176,7 +176,7 @@ Plack::Middleware::EasyHooks - Writing PSGI Middleware using simple hooks
   sub filter {
       my ($self, $env, $chunk) = @_;
 
-      $env->{MyAccessLog]->{response_size} += length $chunk;
+      $env->{MyAccessLog}->{response_size} += length $chunk;
 
       return $chunk;
   }
