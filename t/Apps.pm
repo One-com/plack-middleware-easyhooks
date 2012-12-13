@@ -51,6 +51,21 @@ our %apps = (
 
         return [ 200, ["My-First-Header" => 1, "My-Second-Header" => 2], $body ];
     },
+
+    'Delayed IO::Handle like object' =>
+    sub {
+        return sub {
+            my $responder = shift;
+
+            my @content = qw(foo bar);
+            my $body = Plack::Util::inline_object(
+                getline => sub { shift @content },
+                close   => sub { @content = ()  },
+            );
+
+            $responder->( [ 200, ["My-First-Header" => 1, "My-Second-Header" => 2], $body ] );
+        }
+    },
 );
 
 1;
